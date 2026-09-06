@@ -3,6 +3,9 @@
 An interactive course — not a documentation site — that takes you from "what is an AI coding
 agent?" to designing autonomous, verified development workflows with Claude Code.
 
+**Live:** https://claude-code-academy-neon.vercel.app
+(auto-deploys from `main` via Vercel + GitHub)
+
 It combines an interactive curriculum, a Claude Code playground/simulator, guided challenges, a
 prompt lab, a reference manual, a project library, and a progress tracker with adaptive
 recommendations.
