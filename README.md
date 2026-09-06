@@ -17,10 +17,11 @@ npm install
 npm run dev      # http://localhost:5173
 ```
 
-Build for production:
+Build for production / run tests:
 
 ```bash
 npm run build && npm run preview
+npm test                 # Vitest: pure-logic, reducer, sim engine, content integrity, route smoke tests
 ```
 
 No API key, no backend. All progress is stored in your browser (`localStorage`) and the
@@ -59,4 +60,6 @@ official docs at <https://code.claude.com/docs>.
 ## Stack
 
 Vite 8 · React 19 · TypeScript (strict) · Tailwind v3 · React Router 7 · Fuse.js ·
-react-markdown. See `CLAUDE.md` for the architecture and conventions.
+react-markdown · Vitest + Testing Library. See `CLAUDE.md` for architecture and conventions.
+
+CI runs lint → test → build on every PR; `main` requires the check to pass before merge.

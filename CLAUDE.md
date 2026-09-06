@@ -9,7 +9,11 @@ local (localStorage) and works offline after first load.
 - `npm run dev` — dev server on http://localhost:5173
 - `npm run build` — `tsc -b` then `vite build` (must pass before considering work done)
 - `npm run lint` — oxlint
+- `npm test` — Vitest (run once); `npm run test:watch`, `npm run test:coverage`
 - `npm run preview` — serve the production build
+
+CI (`.github/workflows/ci.yml`) runs lint → test → build on every PR and push to `main`.
+`main` is protected — the `Lint, typecheck & build` check must pass before merge.
 
 ## Architecture — keep these layers separate
 
@@ -43,6 +47,18 @@ local (localStorage) and works offline after first load.
   `versionSensitive` flag, and prose should say "Verify against current Claude Code documentation."
 - Official docs live at `https://code.claude.com/docs/en/…`. Link to them; never reproduce them
   verbatim — the Academy summarizes and teaches.
+
+## Tests
+
+- Vitest + Testing Library, jsdom env. Config in `vitest.config.ts` (kept separate
+  from `vite.config.ts` to dodge a Vite-8-vs-Vitest-bundled-Vite type clash; tests use
+  esbuild's automatic JSX runtime, not the React plugin). Setup: `src/test/setup.ts`.
+- Coverage focus: `src/engine/**`, `src/lib/**`, `src/sim/**`, `src/store/**`.
+- `src/store/progress.tsx` exports `reducer` and `INITIAL_PROGRESS` for unit testing.
+- `src/content/content.test.ts` is an integrity check — it fails if any lesson
+  prerequisite/related id, glossary link, command `related` id, graph edge, skill id,
+  or quiz `correctAnswer` index is invalid. Run it after editing content.
+- `src/test/routes.test.tsx` renders every route through `<App>` and asserts no throw.
 
 ## Gotchas
 

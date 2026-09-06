@@ -37,7 +37,7 @@ export interface ProgressState {
   seenBadges: string[];
 }
 
-const INITIAL: ProgressState = {
+export const INITIAL_PROGRESS: ProgressState = {
   version: 1,
   xp: 0,
   lessons: {},
@@ -100,7 +100,7 @@ function addSkill(map: Record<string, SkillRec>, skill: string, correct: boolean
 // Reducer
 // ---------------------------------------------------------------------------
 
-function reducer(state: ProgressState, action: Action): ProgressState {
+export function reducer(state: ProgressState, action: Action): ProgressState {
   let s: ProgressState = { ...state, streak: touchStreak(state) };
 
   switch (action.type) {
@@ -210,9 +210,9 @@ function reducer(state: ProgressState, action: Action): ProgressState {
     case 'badges/markSeen':
       return { ...s, seenBadges: Array.from(new Set([...s.seenBadges, ...action.ids])) };
     case 'reset':
-      return { ...INITIAL, streak: { current: 0, longest: 0, lastActiveDay: null } };
+      return { ...INITIAL_PROGRESS, streak: { current: 0, longest: 0, lastActiveDay: null } };
     case 'import':
-      return { ...INITIAL, ...action.state, version: 1 };
+      return { ...INITIAL_PROGRESS, ...action.state, version: 1 };
     default:
       return s;
   }
@@ -231,7 +231,7 @@ interface Ctx {
 const ProgressContext = createContext<Ctx | null>(null);
 
 export function ProgressProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, INITIAL, (init) => ({ ...init, ...load<Partial<ProgressState>>('progress', {}) }));
+  const [state, dispatch] = useReducer(reducer, INITIAL_PROGRESS, (init) => ({ ...init, ...load<Partial<ProgressState>>('progress', {}) }));
 
   useEffect(() => {
     save('progress', state);
