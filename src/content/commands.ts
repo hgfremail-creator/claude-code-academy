@@ -31,7 +31,7 @@ export const COMMANDS: CommandEntry[] = [
       'git diff main --name-only | claude -p "review these files for security issues" --output-format json --allowedTools "Read,Grep"',
     commonMistake:
       'Using -p for exploratory work you will want to iterate on. Interactive sessions are better for anything with back-and-forth.',
-    related: ['claude', 'batch', 'headless'],
+    related: ['claude', 'batch', 'goal'],
     versionSensitive: true,
   },
   {
@@ -46,7 +46,7 @@ export const COMMANDS: CommandEntry[] = [
     advancedExample: 'claude -r "oauth-migration" "address the PR review comments and push"',
     commonMistake:
       'Resuming a stale session for a new task. If the old context is irrelevant, start fresh — a polluted context hurts more than re-explaining helps.',
-    related: ['clear', 'rewind', 'rename'],
+    related: ['clear', 'rewind', 'claude'],
     versionSensitive: true,
   },
   {
@@ -104,7 +104,7 @@ export const COMMANDS: CommandEntry[] = [
     advancedExample:
       '"Restore code only" to keep the discussion but revert files, then redirect the approach without re-explaining.',
     commonMistake: 'Treating checkpoints as a Git replacement. They do not capture Bash or external changes. Branch first.',
-    related: ['clear', 'checkpointing', 'claude-continue'],
+    related: ['clear', 'claude-continue', 'permission-mode'],
     versionSensitive: true,
   },
   {
@@ -119,7 +119,7 @@ export const COMMANDS: CommandEntry[] = [
     beginnerExample: 'Press Shift+Tab until the status bar shows "plan mode on".',
     advancedExample: 'claude --permission-mode auto -p "fix all lint errors and run the test suite until green"',
     commonMistake: 'Using bypassPermissions on a real machine to avoid prompts. That removes the only gate on destructive/exfiltrating commands.',
-    related: ['permissions', 'claude', 'sandbox'],
+    related: ['permissions', 'claude', 'hooks'],
     versionSensitive: true,
   },
   {
@@ -133,7 +133,7 @@ export const COMMANDS: CommandEntry[] = [
     beginnerExample: '/permissions then add an allow rule for `Bash(npm run test:*)`',
     advancedExample: 'Deny `Bash(curl *)` and `Bash(git push --force*)` in project settings, committed for the whole team.',
     commonMistake: 'Allowlisting broad patterns like `Bash(*)`. Scope rules narrowly; the point is to skip the safe ones, not all of them.',
-    related: ['permission-mode', 'hooks', 'sandbox'],
+    related: ['permission-mode', 'hooks', 'doctor'],
     versionSensitive: true,
   },
   {
@@ -175,7 +175,7 @@ export const COMMANDS: CommandEntry[] = [
     beginnerExample: '/code-review',
     advancedExample: '/code-review high --fix — broader coverage, then apply the surviving findings to the working tree.',
     commonMistake: 'Treating every finding as mandatory. A reviewer surfaces gaps by design; scope your response to correctness and requirements.',
-    related: ['security-review', 'agents', 'verify'],
+    related: ['security-review', 'agents', 'run'],
     versionSensitive: true,
   },
   {
@@ -234,7 +234,7 @@ export const COMMANDS: CommandEntry[] = [
       '@"security-reviewer (agent)" review the auth diff — @-mention guarantees that specific agent runs.',
     commonMistake:
       'Delegating tight-iteration work. Regular subagents start fresh (no conversation history), so the re-briefing overhead outweighs the isolation benefit.',
-    related: ['code-review', 'workflows', 'worktrees'],
+    related: ['code-review', 'worktrees', 'batch'],
     versionSensitive: true,
   },
   {

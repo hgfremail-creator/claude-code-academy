@@ -27,5 +27,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Test
+        run: npm test
+
       - name: Build (tsc -b + vite build)
         run: npm run build
