@@ -19,7 +19,7 @@ export default function Challenges() {
   const [params] = useSearchParams();
   const [pool, setPool] = useState<'daily' | 'weekly' | 'library'>('daily');
   const [openId, setOpenId] = useState<string | null>(params.get('id'));
-  const dId = useMemo(dailyId, []);
+  const dId = useMemo(() => dailyId(), []);
 
   const list = CHALLENGES.filter((c) => c.pool === pool);
 
